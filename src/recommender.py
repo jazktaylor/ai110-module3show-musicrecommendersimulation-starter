@@ -108,10 +108,10 @@ def score_song(user_prefs: Dict, song: Dict) -> float:
     reasons = []
     # Categorical matches
     if song['genre'] == user_prefs.get('favorite_genre'):
-        score += 1.0
+        score += 2.0
         reasons.append(f"genre match (+1.0)")
     if song['mood'] == user_prefs.get('favorite_mood'):
-        score += 2.0
+        score += 1.0
         reasons.append(f"mood match (+2.0)")
 
     # Numerical features
@@ -138,7 +138,7 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
     """
     # Score every song and collect explanations
     results = [
-        (song, score, ", ".join(reasons))
+        (song, score, "\n".join(reasons))
         for song in songs
         for score, reasons in [score_song(user_prefs, song)]
     ]

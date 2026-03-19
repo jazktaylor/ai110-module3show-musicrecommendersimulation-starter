@@ -61,6 +61,7 @@ Potential Bias Note:
   The algorithm may favor songs with popular moods or genres, and users whose preferences align with the most common values in the dataset. If mood is weighted more heavily, recommendations may overlook genre diversity. Numerical features are only considered if user preferences are provided, which could bias results toward categorical matches. This simple scoring system does not account for deeper musical qualities or user context, and may reinforce existing biases in the song catalog.
 
 ![Sample Recommendation Output](screenshots/recommendation_output.png)
+![Test Sample Recommendation Output](screenshots/test_output.png)
 
 ---
 
