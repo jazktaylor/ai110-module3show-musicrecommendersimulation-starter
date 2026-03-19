@@ -29,6 +29,39 @@ Some prompts to answer:
 
 You can include a simple diagram or bullet list if helpful.
 
+- Each Song in the system uses features like genre, mood, energy, tempo, valence, danceability, and acousticness. These describe both the style and feel of the music.
+- The UserProfile stores the user’s preferred genre, mood, and target values for features like energy or tempo. This represents their musical taste.
+- The Recommender computes a score for each song by comparing the song’s features to the user’s preferences. For categorical features (genre, mood), it checks for matches. For numerical features (energy, tempo, etc.), it rewards songs that are closer to the user’s preferred values.
+- To choose which songs to recommend, the system ranks all songs by their scores and selects the top matches. This way, the user gets a mix of familiar and new songs that fit their taste.
+
+- Song features: genre, mood, energy, tempo, valence, danceability, acousticness
+- UserProfile: preferred genre, preferred mood, preferred energy, preferred tempo, preferred valence, preferred danceability, preferred acousticness
+- Scoring: compares song features to user preferences
+- Ranking: recommends top-scoring songs
+---
+Algorithm Recipe: 
+
+1. Input:
+  Collect user preferences for genre, mood, and optionally numerical features (energy, tempo, valence, danceability, acousticness).
+
+2. Scoring:
+  For each song in songs.csv:
+    - Assign 2 points if the song's mood matches the user's mood.
+    - Assign 1 point if the song's genre matches the user's genre.
+    - For each numerical feature (energy, tempo, etc.), calculate the difference from the user's preference and reward songs that are closer (e.g., subtract the absolute difference from a max score).
+    - Sum all points to get the song's total score.
+
+3. Ranking:
+  Sort all songs by their total score in descending order.
+
+4. Output:
+  Recommend the top K songs as the best matches for the user.
+
+Potential Bias Note:
+  The algorithm may favor songs with popular moods or genres, and users whose preferences align with the most common values in the dataset. If mood is weighted more heavily, recommendations may overlook genre diversity. Numerical features are only considered if user preferences are provided, which could bias results toward categorical matches. This simple scoring system does not account for deeper musical qualities or user context, and may reinforce existing biases in the song catalog.
+
+![Sample Recommendation Output](screenshots/recommendation_output.png)
+
 ---
 
 ## Getting Started
